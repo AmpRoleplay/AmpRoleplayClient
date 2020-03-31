@@ -1,0 +1,29 @@
+body {
+    background-image: url("https://media.discordapp.net/attachments/685172620315983934/685172734946574380/amp-1920-1080.jpg?width=1204&height=677");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#container {
+    display: block;
+    /* justify-content: center;
+    vertical-align: middle; */
+    width: 99%;
+    border: 3px solid rgba(194, 5, 178, 0.685);
+    color: aliceblue;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+p {
+    font-size: 16px;
+    text-align: center;
+}

@@ -15,9 +15,11 @@
   "build": {
     "files": [
       "build/*"
-    ]
+    ],
+    "appId": "com.amplifylauncher.app"
   },
   "dependencies": {
+    "fs-extra": "^9.0.0",
     "jquery": "^3.4.1",
     "update-electron-app": "^1.5.0"
   },
