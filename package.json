@@ -1,0 +1,28 @@
+{
+  "name": "amplify-launcher",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "electron": "^8.2.0"
+  },
+  "build": {
+    "files": [
+      "build/*"
+    ]
+  },
+  "dependencies": {
+    "jquery": "^3.4.1",
+    "update-electron-app": "^1.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AmpRoleplay/AmpRoleplayClient.git"
+  }
+}
