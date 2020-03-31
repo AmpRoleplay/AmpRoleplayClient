@@ -1,10 +1,14 @@
+const setupEvents = require('./installer/setupEvents')
+if (setupEvents.handleSquirrelEvent()) {
+   return;
+}
+
 const url = require("url");
 const { join } = require("path");
-const { ENVIRONMENT } = process.env;
 const { app, BrowserWindow, ipcMain, autoUpdater, dialog } = require("electron");
 const fs = require('fs-extra');
 require('update-electron-app')()
-
+process.env.NODE_ENV = "production"
 let mainWindow;
 app.allowRendererProcessReuse = true;
 app.on("ready", () => {
@@ -100,10 +104,7 @@ ipcMain.on("server:submit", (e, val) => {
     }
 })
 
-if (ENVIRONMENT == "production") {
-    const server = 'http://downloads.amproleplay.com'
-    const feed = `${server}/update/${process.platform}/${app.getVersion()}`
-    autoUpdater.setFeedURL(feed)
+if (process.env.NODE_ENV == "production") {
     setInterval(() => {
         autoUpdater.checkForUpdates()
     }, 60000);
