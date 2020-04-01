@@ -8,9 +8,7 @@ const { join } = require("path");
 const { app, BrowserWindow, ipcMain } = require("electron");
 const fs = require('fs-extra');
 const { exec } = require('child_process');
-const updater = require('electron-simple-updater');
-updater.init('https://raw.githubusercontent.com/AmpRoleplay/AmpRoleplayClient/master/updates.json');
-
+require('update-electron-app')()
 let mainWindow;
 app.allowRendererProcessReuse = true;
 
@@ -29,9 +27,6 @@ app.on("ready", () => {
     }));
 
     mainWindow.setMenu(null);
-    mainWindow.once('ready-to-show', () => {
-        autoUpdater.checkForUpdatesAndNotify();
-    });
 });
 
 ipcMain.on("server:submit", (e, val) => {
@@ -121,6 +116,7 @@ ipcMain.on("server:submit", (e, val) => {
         app.exit();
     }
 });
+
 
 ipcMain.on('app_version', (event) => {
     event.sender.send('app_version', { version: app.getVersion() });

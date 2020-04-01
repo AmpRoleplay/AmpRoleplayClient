@@ -9,18 +9,22 @@ $(document).ready(function() {
       $("footer").text(val.version);
     });
 
-    ipcRenderer.on('update_available', () => {
-        ipcRenderer.removeAllListeners('update_available');
-        $("#message").text('A new update is available. Downloading now...');
-        $("#notification").removeClass("hidden");
-    });
+    ipcRenderer.on('log', (event, val) => {
+        console.log(val);
+      });
 
-    ipcRenderer.on('update_downloaded', () => {
-        ipcRenderer.removeAllListeners('update_downloaded');
-        $("#message").text('Update Downloaded. It will be installed on restart. Restart now?');
-        $("#notification").removeClass("hidden");
-        $("#restart-button").removeClass("hidden");
-    });
+    // ipcRenderer.on('update_available', () => {
+    //     ipcRenderer.removeAllListeners('update_available');
+    //     $("#message").text('A new update is available. Downloading now...');
+    //     $("#notification").removeClass("hidden");
+    // });
+
+    // ipcRenderer.on('update_downloaded', () => {
+    //     ipcRenderer.removeAllListeners('update_downloaded');
+    //     $("#message").text('Update Downloaded. It will be installed on restart. Restart now?');
+    //     $("#notification").removeClass("hidden");
+    //     $("#restart-button").removeClass("hidden");
+    // });
 
 
     $("#mainserver").click(function() {
