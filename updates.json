@@ -1,5 +1,5 @@
 {
-    "win32-x64-prod": {
+    "win32-ia32-prod": {
       "readme": "Release",
       "update": "https://github.com/AmpRoleplay/AmpRoleplayClient/releases/tag/V1.2",
       "install": "https://github.com/AmpRoleplay/AmpRoleplayClient/releases/tag/V1.2/amplifysetup.exe",
