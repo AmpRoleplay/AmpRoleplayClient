@@ -157,17 +157,6 @@ ul li::before {
     text-decoration: underline;
 }
 
-/* #ruleslist::-webkit-scrollbar {width: 16px;}
-.scrollBar2::-webkit-scrollbar-track-piece {
-  background: #ccc;
-  border-right: 6px solid #fff;
-  border-left: 6px solid #fff;
-}
-#ruleslist::-webkit-scrollbar-thumb {
-  background: #666;
-  border-radius: 8px;
-} */
-
 *::-webkit-scrollbar,
 *::-webkit-scrollbar-thumb {
   width: 26px;
@@ -190,6 +179,21 @@ ul li::before {
   text-shadow: 0 0 black;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
   transition: color .3s ease;
+}
+
+#notification {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 200px;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.hidden {
+    display: none;
 }
 
 footer {

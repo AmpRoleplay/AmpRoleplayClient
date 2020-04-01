@@ -27,6 +27,9 @@ app.on("ready", () => {
     }));
 
     mainWindow.setMenu(null);
+    mainWindow.once('ready-to-show', () => {
+        autoUpdater.checkForUpdatesAndNotify();
+      });
 });
 
 ipcMain.on("server:submit", (e, val) => {
@@ -102,4 +105,20 @@ ipcMain.on("server:submit", (e, val) => {
     if (val == "close") {
         app.exit();
     }
-})
+});
+
+ipcMain.on('app_version', (event) => {
+    event.sender.send('app_version', { version: app.getVersion() });
+});
+  
+ipcMain.on('restart_app', () => {
+    autoUpdater.quitAndInstall();
+});
+
+
+autoUpdater.on('update-available', () => {
+    mainWindow.webContents.send('update_available');
+});
+autoUpdater.on('update-downloaded', () => {
+    mainWindow.webContents.send('update_downloaded');
+});
