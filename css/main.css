@@ -1,5 +1,5 @@
 body {
-    background-image: url("https://media.discordapp.net/attachments/685172620315983934/685172734946574380/amp-1920-1080.jpg?width=1204&height=677");
+    background-image: url("../build/launcher-bg.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -7,94 +7,196 @@ body {
     overflow: hidden;
 }
 
-.container {
-    position: relative;
+#nav {
+    position: absolute;
     float: left;
-    top: 30%;
-    left: 10%;
-    width: 30%;
-    height: 40%;
-    margin-bottom: 5px;
-    background-color: rgba(255, 255, 255, .15);  
-    backdrop-filter: blur(3px);
-    border-radius: 15px;
-}
-
-#mainserver {
-    padding: 3%;
-}
-#mainserver:hover {
-    color: white;
-    text-shadow: 2px 2px 4px #000000;
-}
-
-#testserver {
-    padding: 3%;
-}
-
-#testserver:hover {
-    color: white;
-    text-shadow: 2px 2px 4px #000000;
-}
-
-#servers {
-    position: relative;
-    width: 100%;
-    height: 80%;
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    font-family: Arial, Helvetica, sans-serif;
-    color: aliceblue;
+    width: 13%;
+    height: 60%;
+    top: 5%;
+    left: 6%;
 }
 
 .button {
     display: block;
     width: 100%;
-    border-radius: 15px;
-    background-color: rgba(211, 25, 211, 0.774);
+    background-color: rgb(247, 8, 227);
+    border-radius: 5px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     color: white;
     padding: 14px 28px;
     font-size: 16px;
     cursor: pointer;
     text-align: center;
-    margin-top: 5px;
-}
-  
-.button:hover {
-    background-color: rgb(199, 16, 236);
-    color: white;
+    margin-top: 20px;
+    font-family: Tahoma;
 }
 
-.selected {
-    font-size: 24px;
-    text-shadow: 4px 4px 8px #000000;
-}
-
-#footer {
+#serverlist {
     position: absolute;
-    bottom: 0;
-    width: 100%;
+    float: right;
+    width: 45%;
+    height: 50%;
+    top: 25%;
+    left: 40%;
+    background-color: rgb(1, 1, 1, 0.3);
+    color: white;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    font-family: Tahoma;
 }
 
-.btn-footer {
+#serversheader {
+    text-align: center;
+    font-size: 26px;
+    position: relative;
+    top: 0;
+    width: 100%;
+    height: 20%;
+    color: white;
+    line-height: 100px;
+    background-color: rgb(1, 1, 1, 0.7);
+}
+
+.servertable {
+    position: relative;
+    width: 100%;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+}
+
+.serverSelect {
+    background-color: rgb(1, 1, 1, 0.7);
+}
+
+.servertable tr:hover {
+    background-color: rgb(1, 1, 1, 0.7);
+}
+
+#launch {
     display: block;
-    width: 23.8%;
-    float: left;
-    border-radius: 10px;
-    background-color: rgba(211, 25, 211, 0.774);
+    position: absolute;
+    bottom: -20%;
+    width: 100%;
+    background-color: rgb(247, 8, 227);
+    border-radius: 5px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     color: white;
-    padding: 10px 22px;
-    font-size: 12px;
+    padding: 14px 28px;
+    font-size: 16px;
     cursor: pointer;
     text-align: center;
-    margin: 5px;
+    margin-top: 20px;
+    font-family: Tahoma;
 }
 
-.btn-footer:hover {
-    background-color: rgb(199, 16, 236);
+#container {
+    display: none;
+    position: absolute;
+    float: right;
+    width: 65%;
+    height: 80%;
+    top: 10%;
+    left: 30%;
+    background-color: rgb(1, 1, 1, 0.3);
     color: white;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    font-family: Tahoma;
 }
 
+ul {
+    list-style: none; 
+}
+  
+ul li::before {
+    content: "\2022";
+    color: rgb(247, 8, 227);
+    font-weight: bold; 
+    display: inline-block; 
+    width: 1em; 
+    margin-left: -1em;
+}
+
+#patchlatest {
+    padding-left: 2%;
+}
+
+#patchprevious {
+    display: none;
+    padding-left: 2%;
+}
+
+#twopatchesago {
+    display: none;
+    padding-left: 2%;
+}
+
+#arrownav {
+    display: block;
+    position: absolute;
+    bottom: -15%;
+    width: 100%;
+    height: 15%;
+    text-align: center;
+    font-size: 36px;
+    color: rgb(247, 8, 227);
+}
+#changelogs {
+    overflow: hidden;
+}
+#ruleslist {
+    position: relative;
+    width: 95%;
+    height: 100%;
+    overflow-y: scroll;
+    padding-left: 5%;
+    font-family: Tahoma;
+}
+
+#ruleslist h4 {
+    color: rgb(247, 8, 227);
+    text-decoration: underline;
+}
+
+/* #ruleslist::-webkit-scrollbar {width: 16px;}
+.scrollBar2::-webkit-scrollbar-track-piece {
+  background: #ccc;
+  border-right: 6px solid #fff;
+  border-left: 6px solid #fff;
+}
+#ruleslist::-webkit-scrollbar-thumb {
+  background: #666;
+  border-radius: 8px;
+} */
+
+*::-webkit-scrollbar,
+*::-webkit-scrollbar-thumb {
+  width: 26px;
+  border-radius: 13px;
+  background-clip: padding-box;
+  border: 10px solid transparent;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+*::-webkit-scrollbar-thumb {        
+  box-shadow: inset 0 0 0 10px;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+/* div:hover {
+  color: rgba(0, 0, 0, 0.3);
+} */
+
+#ruleslist div {
+  text-shadow: 0 0 black;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+  transition: color .3s ease;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: white;
+    font-family: Tahoma;
+    font-size: 14px;
+}

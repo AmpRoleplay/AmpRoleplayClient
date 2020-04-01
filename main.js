@@ -6,6 +6,7 @@ if (setupEvents.handleSquirrelEvent()) {
 const url = require("url");
 const { join } = require("path");
 const { app, BrowserWindow, ipcMain, autoUpdater, dialog } = require("electron");
+const { exec } = require('child_process');
 const fs = require('fs-extra');
 require('update-electron-app')()
 process.env.NODE_ENV = "production"
@@ -13,8 +14,9 @@ let mainWindow;
 app.allowRendererProcessReuse = true;
 app.on("ready", () => {
     mainWindow = new BrowserWindow({
-        width: 1204, 
-        height: 677,
+        width: 1500,
+        height: 1000,
+        frame: false,
         icon: join(__dirname, "build", "amp-logo.png"),
         webPreferences: { nodeIntegration: true, backgroundThrottling: false }
     });
@@ -39,6 +41,15 @@ ipcMain.on("server:submit", (e, val) => {
         })
         newWindow.loadURL("fivem://connect/142.11.200.194:30121");
         newWindow.setIgnoreMouseEvents(true);
+        let newWindow2 = new BrowserWindow({
+            frame: false,
+            focusable: false,
+            transparent: true,
+            alwaysOnTop: true,
+            fullscreen: true
+        })
+        newWindow2.loadURL("ts3server://teamspeak.amproleplay.com?password=pC2haoYK");
+        newWindow2.setIgnoreMouseEvents(true);
     }
     if (val == "test") {
         let newWindow = new BrowserWindow({
@@ -50,39 +61,15 @@ ipcMain.on("server:submit", (e, val) => {
         })
         newWindow.loadURL("fivem://connect/142.11.200.194:30120");
         newWindow.setIgnoreMouseEvents(true);
-    }
-
-    if (val == "changelog") {
-
-        newWindow = new BrowserWindow({
-            width: 1500, 
-            height: 800,
-            icon: join(__dirname, "build", "amp-logo.png"),
-            webPreferences: { nodeIntegration: true, backgroundThrottling: false }
-        });
-        newWindow.loadURL(url.format({
-            pathname: join(__dirname, "html", "changelog.html"),
-            protocol: "file:",
-            slashes: true
-        }));
-        newWindow.setMenu(null);
-    }
-
-    if (val == "rules") {
-
-        newWindow = new BrowserWindow({
-            width: 1500, 
-            height: 800,
-            icon: join(__dirname, "build", "amp-logo.png"),
-            webPreferences: { nodeIntegration: true, backgroundThrottling: false }
-        });
-        newWindow.loadURL(url.format({
-            pathname: join(__dirname, "html", "rules.html"),
-            protocol: "file:",
-            slashes: true
-        }));
-        newWindow.setMenu(null);
-
+        let newWindow2 = new BrowserWindow({
+            frame: false,
+            focusable: false,
+            transparent: true,
+            alwaysOnTop: true,
+            fullscreen: true
+        })
+        newWindow2.loadURL("ts3server://teamspeak.amproleplay.com?password=pC2haoYK");
+        newWindow2.setIgnoreMouseEvents(true);
     }
 
     if (val == "cache") {
@@ -101,5 +88,18 @@ ipcMain.on("server:submit", (e, val) => {
         newWindow.loadURL('http://amproleplay.com');
         newWindow.setMenu(null);
         newWindow.maximize();
+    }
+
+    if (val == "twitter") {
+        newWindow = new BrowserWindow({
+            icon: join(__dirname, "build", "amp-logo.png")
+        });
+        newWindow.loadURL('https://twitter.com/amplifyrp/');
+        newWindow.setMenu(null);
+        newWindow.maximize();
+    }
+
+    if (val == "close") {
+        app.exit();
     }
 })
