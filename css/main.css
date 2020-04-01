@@ -16,6 +16,11 @@ body {
     left: 6%;
 }
 
+#nav img {
+    height: 30%;
+    width: 100%;
+}
+
 .button {
     display: block;
     width: 100%;

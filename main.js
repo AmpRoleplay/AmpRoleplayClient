@@ -14,8 +14,8 @@ let mainWindow;
 app.allowRendererProcessReuse = true;
 app.on("ready", () => {
     mainWindow = new BrowserWindow({
-        width: 1500,
-        height: 1000,
+        width: 1300,
+        height: 800,
         frame: false,
         icon: join(__dirname, "build", "amp-logo.png"),
         webPreferences: { nodeIntegration: true, backgroundThrottling: false }

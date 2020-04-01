@@ -4900,3 +4900,4 @@ release-builds/Squirrel.exe
 release-builds/windows-installer/amplify-launcher-1.0.0-full.nupkg
 release-builds/windows-installer/amplifysetup.exe
 script.js
+electron-builder.yml
