@@ -7,6 +7,7 @@ const url = require("url");
 const { join } = require("path");
 const { app, BrowserWindow, ipcMain } = require("electron");
 const fs = require('fs-extra');
+const { exec } = require('child_process');
 const updater = require('electron-simple-updater');
 updater.init('https://raw.githubusercontent.com/AmpRoleplay/AmpRoleplayClient/master/updates.json');
 
@@ -45,15 +46,22 @@ ipcMain.on("server:submit", (e, val) => {
         })
         newWindow.loadURL("fivem://connect/142.11.200.194:30121");
         newWindow.setIgnoreMouseEvents(true);
-        let newWindow2 = new BrowserWindow({
-            frame: false,
-            focusable: false,
-            transparent: true,
-            alwaysOnTop: true,
-            fullscreen: true
-        })
-        newWindow2.loadURL("ts3server://teamspeak.amproleplay.com?password=pC2haoYK");
-        newWindow2.setIgnoreMouseEvents(true);
+        exec("tasklist", (err, stdout, stderr) => {
+            let query = "ts3client_win64.exe"
+            let query2 = "ts3client_win32.exe"
+            let isRunning = ((stdout.toLowerCase().indexOf(query.toLowerCase()) > -1) || stdout.toLowerCase().indexOf(query2.toLowerCase()) > -1) ? true : false;
+            if (isRunning) return;
+            let newWindow2 = new BrowserWindow({
+                frame: false,
+                focusable: false,
+                transparent: true,
+                alwaysOnTop: true,
+                fullscreen: true
+            })
+            newWindow2.loadURL("ts3server://teamspeak.amproleplay.com?password=pC2haoYK");
+            newWindow2.setIgnoreMouseEvents(true);
+        });
+
     }
     if (val == "test") {
         let newWindow = new BrowserWindow({
@@ -65,15 +73,21 @@ ipcMain.on("server:submit", (e, val) => {
         })
         newWindow.loadURL("fivem://connect/142.11.200.194:30120");
         newWindow.setIgnoreMouseEvents(true);
-        let newWindow2 = new BrowserWindow({
-            frame: false,
-            focusable: false,
-            transparent: true,
-            alwaysOnTop: true,
-            fullscreen: true
-        })
-        newWindow2.loadURL("ts3server://teamspeak.amproleplay.com?password=pC2haoYK");
-        newWindow2.setIgnoreMouseEvents(true);
+        exec("tasklist", (err, stdout, stderr) => {
+            let query = "ts3client_win64.exe"
+            let query2 = "ts3client_win32.exe"
+            let isRunning = ((stdout.toLowerCase().indexOf(query.toLowerCase()) > -1) || stdout.toLowerCase().indexOf(query2.toLowerCase()) > -1) ? true : false;
+            if (isRunning) return;
+            let newWindow2 = new BrowserWindow({
+                frame: false,
+                focusable: false,
+                transparent: true,
+                alwaysOnTop: true,
+                fullscreen: true
+            })
+            newWindow2.loadURL("ts3server://teamspeak.amproleplay.com?password=pC2haoYK");
+            newWindow2.setIgnoreMouseEvents(true);
+        });
     }
 
     if (val == "cache") {
