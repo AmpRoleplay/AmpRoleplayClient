@@ -2,16 +2,17 @@ const setupEvents = require('./installer/setupEvents')
 if (setupEvents.handleSquirrelEvent()) {
    return;
 }
-
+process.env.NODE_ENV = "production"
 const url = require("url");
 const { join } = require("path");
-const { app, BrowserWindow, ipcMain, autoUpdater, dialog } = require("electron");
-const { exec } = require('child_process');
+const { app, BrowserWindow, ipcMain } = require("electron");
 const fs = require('fs-extra');
-require('update-electron-app')()
-process.env.NODE_ENV = "production"
+const updater = require('electron-simple-updater');
+updater.init('https://raw.githubusercontent.com/AmpRoleplay/AmpRoleplayClient/master/updates.json');
+
 let mainWindow;
 app.allowRendererProcessReuse = true;
+
 app.on("ready", () => {
     mainWindow = new BrowserWindow({
         width: 1300,
@@ -29,7 +30,7 @@ app.on("ready", () => {
     mainWindow.setMenu(null);
     mainWindow.once('ready-to-show', () => {
         autoUpdater.checkForUpdatesAndNotify();
-      });
+    });
 });
 
 ipcMain.on("server:submit", (e, val) => {
@@ -109,16 +110,4 @@ ipcMain.on("server:submit", (e, val) => {
 
 ipcMain.on('app_version', (event) => {
     event.sender.send('app_version', { version: app.getVersion() });
-});
-  
-ipcMain.on('restart_app', () => {
-    autoUpdater.quitAndInstall();
-});
-
-
-autoUpdater.on('update-available', () => {
-    mainWindow.webContents.send('update_available');
-});
-autoUpdater.on('update-downloaded', () => {
-    mainWindow.webContents.send('update_downloaded');
 });
