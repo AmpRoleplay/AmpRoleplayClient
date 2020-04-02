@@ -5,10 +5,11 @@ if (setupEvents.handleSquirrelEvent()) {
 process.env.NODE_ENV = "production"
 const url = require("url");
 const { join } = require("path");
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, autoUpdater, dialog } = require("electron");
 const fs = require('fs-extra');
 const { exec } = require('child_process');
 require('update-electron-app')()
+// autoUpdater.setFeedURL(`http://70.121.46.160:1337/update/win32/${app.getVersion()}`);
 let mainWindow;
 app.allowRendererProcessReuse = true;
 
@@ -25,8 +26,11 @@ app.on("ready", () => {
         protocol: "file:",
         slashes: true
     }));
-
     mainWindow.setMenu(null);
+    
+    // setInterval(() => {
+    //     autoUpdater.checkForUpdates();
+    // }, 60000);
 });
 
 ipcMain.on("server:submit", (e, val) => {
@@ -113,9 +117,78 @@ ipcMain.on("server:submit", (e, val) => {
     }
 
     if (val == "close") {
+        mainWindow = null;
+        newWindow = null;
+        newWindow2 = null;
         app.exit();
     }
 });
+
+// autoUpdater.on('checking-for-update', (event) => {
+//     const dialogOpts = {
+//       type: 'info',
+//       buttons: ['Okay'],
+//       title: 'Checking for Update',
+//       message: "",
+//       detail: ''
+//     }
+//     setTimeout(() => {
+//         dialog.showMessageBox(dialogOpts);
+//     }, 5000)
+    
+// });
+
+// autoUpdater.on('update-available', (event) => {
+//     const dialogOpts = {
+//       type: 'info',
+//       buttons: ['Okay'],
+//       title: 'Update Available',
+//       message: "",
+//       detail: 'A new version has been detected. Downloading now...'
+//     }
+//     setTimeout(() => {
+//         dialog.showMessageBox(dialogOpts);
+//     }, 5000)
+// });
+
+// autoUpdater.on('update-not-available', (event) => {
+//     const dialogOpts = {
+//       type: 'info',
+//       buttons: ['Okay'],
+//       title: 'Update Not Available',
+//       message: "",
+//       detail: ''
+//     }
+//     setTimeout(() => {
+//         dialog.showMessageBox(dialogOpts);
+//     }, 5000)
+// });
+
+// autoUpdater.on('update-downloaded', (event) => {
+//     const dialogOpts = {
+//       type: 'info',
+//       buttons: ['Restart', 'Later'],
+//       title: 'Application Update',
+//       message: "",
+//       detail: 'A new version has been downloaded. Restart the application to apply the updates.'
+//     }
+  
+//     dialog.showMessageBox(dialogOpts).then((returnValue) => {
+//       if (returnValue.response === 0) autoUpdater.quitAndInstall()
+//     })
+// });
+
+// autoUpdater.on('error', err => {
+//     const dialogOpts = {
+//         type: 'info',
+//         buttons: ["Okay"],
+//         title: 'Application Error',
+//         message: "",
+//         detail: err.message
+//       }
+//       dialog.showMessageBox(dialogOpts);
+// });
+
 
 
 ipcMain.on('app_version', (event) => {
