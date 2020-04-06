@@ -3,6 +3,13 @@ $(document).ready(function() {
     const { ipcRenderer } = require('electron');
 
     ipcRenderer.send('app_version');
+    ipcRenderer.send('get_current_clients', "main");
+    ipcRenderer.send('get_current_clients', "test"); 
+    
+    setInterval(() => {
+        ipcRenderer.send('get_current_clients', "main");
+        ipcRenderer.send('get_current_clients', "test"); 
+    }, 15000);
 
     ipcRenderer.on('app_version', (event, val) => {
       ipcRenderer.removeAllListeners('app_version');
@@ -11,21 +18,15 @@ $(document).ready(function() {
 
     ipcRenderer.on('log', (event, val) => {
         console.log(val);
-      });
+    });
 
-    // ipcRenderer.on('update_available', () => {
-    //     ipcRenderer.removeAllListeners('update_available');
-    //     $("#message").text('A new update is available. Downloading now...');
-    //     $("#notification").removeClass("hidden");
-    // });
+    ipcRenderer.on('get_current_clients_test', (event, val) => {
+        $("#testplayerlist").text(val.players);
+    });
 
-    // ipcRenderer.on('update_downloaded', () => {
-    //     ipcRenderer.removeAllListeners('update_downloaded');
-    //     $("#message").text('Update Downloaded. It will be installed on restart. Restart now?');
-    //     $("#notification").removeClass("hidden");
-    //     $("#restart-button").removeClass("hidden");
-    // });
-
+    ipcRenderer.on('get_current_clients_main', (event, val) => {
+        $("#mainplayerlist").text(val.players);
+    });
 
     $("#mainserver").click(function() {
         if ($("#mainserver").hasClass("serverSelect")) {

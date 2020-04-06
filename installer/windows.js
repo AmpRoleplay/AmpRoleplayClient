@@ -20,6 +20,8 @@ function getInstallerConfig () {
     outputDirectory: path.join(outPath, 'windows-installer'),
     exe: 'Amplify Launcher.exe',
     setupExe: 'amplifysetup.exe',
+    certificateFile: path.join(outPath, "..", "my_signing_key.pfx"),
+    certificatePassword: "my_password",
     setupIcon: path.join(rootPath, 'build', 'amp_icon.ico')
   })
 }

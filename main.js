@@ -5,12 +5,11 @@ if (setupEvents.handleSquirrelEvent()) {
 process.env.NODE_ENV = "production"
 const url = require("url");
 const { join } = require("path");
-const { app, BrowserWindow, ipcMain, autoUpdater, dialog } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const fs = require('fs-extra');
 const { exec } = require('child_process');
-const server = "https://amp-roleplay-client.now.sh"
-const feed = `${server}/update/win32/${app.getVersion()}`
-autoUpdater.setFeedURL(feed)
+const fetch = require("node-fetch");
+require('update-electron-app')();
 let mainWindow;
 app.allowRendererProcessReuse = true;
 
@@ -28,7 +27,6 @@ app.on("ready", () => {
         slashes: true
     }));
     mainWindow.setMenu(null);
-    autoUpdater.checkForUpdates();
 });
 
 ipcMain.on("server:submit", (e, val) => {
@@ -122,44 +120,24 @@ ipcMain.on("server:submit", (e, val) => {
     }
 });
 
-autoUpdater.on('update-available', (event) => {
-    const dialogOpts = {
-      type: 'info',
-      buttons: ["Okay"],
-      title: 'Update Available',
-      message: "",
-      detail: 'A new version is available, downloading now....'
-    }
-  
-    dialog.showMessageBox(dialogOpts);
-});
-
-autoUpdater.on('update-downloaded', (event) => {
-    const dialogOpts = {
-      type: 'info',
-      buttons: ['Restart', 'Later'],
-      title: 'Application Update',
-      message: "",
-      detail: 'A new version has been downloaded. Restart the application to apply the updates.'
-    }
-  
-    dialog.showMessageBox(dialogOpts).then((returnValue) => {
-      if (returnValue.response === 0) autoUpdater.quitAndInstall()
-    })
-});
-
-autoUpdater.on('error', err => {
-    const dialogOpts = {
-        type: 'info',
-        buttons: ["Okay"],
-        title: 'Application Error',
-        message: "",
-        detail: err.message
-      }
-      dialog.showMessageBox(dialogOpts);
-});
-
-
 ipcMain.on('app_version', (event) => {
     event.sender.send('app_version', { version: app.getVersion() });
+});
+
+ipcMain.on('get_current_clients', async (event, val) => {
+    if (val == "test") {
+        let info = await fetch("http://142.11.200.194:30120/info.json", {method: 'GET'}).then(res => res.json());
+        if (!info) return event.sender.send('get_current_clients_test', { players: "OFFLINE" });
+        let players = [] = await fetch("http://142.11.200.194:30120/players.json", {method: 'GET'}).then(res => res.json());
+        let count = players.length;
+        event.sender.send('get_current_clients_test', { players: `${count}/${parseInt(info.vars.sv_maxClients)}`});
+    }
+
+    if (val == "main") {
+        let info = await fetch("http://142.11.200.194:30121/info.json", {method: 'GET'}).then(res => res.json());
+        if (!info) return event.sender.send('get_current_clients_main', { players: "OFFLINE" });
+        let players = [] = await fetch("http://142.11.200.194:30121/players.json", {method: 'GET'}).then(res => res.json());
+        let count = players.length;
+        event.sender.send('get_current_clients_main', { players: `${count}/${parseInt(info.vars.sv_maxClients)}` });
+    }
 });
