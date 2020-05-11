@@ -5,11 +5,11 @@ if (setupEvents.handleSquirrelEvent()) {
 process.env.NODE_ENV = "production"
 const url = require("url");
 const { join } = require("path");
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, Notification } = require("electron");
 const fs = require('fs-extra');
 const { exec } = require('child_process');
 const fetch = require("node-fetch");
-require('update-electron-app')();
+const downloadFile = require('download-file');
 let mainWindow;
 app.allowRendererProcessReuse = true;
 
@@ -27,6 +27,29 @@ app.on("ready", () => {
         slashes: true
     }));
     mainWindow.setMenu(null);
+    setTimeout(async () => {
+        let checkUpdate = await fetch("http://amproleplay.com/downloads/newest/package.json", {method: "GET"}).then(res => res.json());
+        if (checkUpdate.version > app.getVersion()) {
+            let notify = new Notification({
+                title: "Amplify Launcher Update",
+                body: "A new update is available. Downloading now..."
+            })
+            notify.show();
+            let appdata = app.getPath("appData");
+            let downloadPath = join(appdata, "..", "Local");
+            downloadFile("http://amproleplay.com/downloads/newest/amplifysetup.exe", {directory: downloadPath, filename: "amplifysetup.exe"}, function(err){
+                if (err) {
+                    console.log(err);
+                }
+                console.log("Downloaded")
+                exec(join(downloadPath, "amplifysetup.exe"), (err, stdout, stderr) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+            });
+        }
+    }, 5000);
 });
 
 ipcMain.on("server:submit", (e, val) => {
@@ -86,12 +109,27 @@ ipcMain.on("server:submit", (e, val) => {
     }
 
     if (val == "cache") {
+        
         let appdata = app.getPath("appData");
         let fivemPath = join(appdata, "..", "Local", "FiveM", "FiveM.app", "cache");
-        fs.remove(fivemPath).then(() => {
-          }).catch(err => {
-            console.error(err)
-          });
+
+        fs.readdir(fivemPath, (err, files) => {
+            if (err) {
+                console.log(err);
+            }
+            files.forEach(file => {
+                const fileDir = join(fivemPath, file);
+                if (file !== 'game') {
+                    fs.remove(fileDir, err => {
+                        if (err) {
+                            console.log(err);
+                            return;
+                        }
+                    })
+                }
+            });
+        });
+
     }
 
     if (val == "website") {
@@ -140,4 +178,5 @@ ipcMain.on('get_current_clients', async (event, val) => {
         let count = players.length;
         event.sender.send('get_current_clients_main', { players: `${count}/${parseInt(info.vars.sv_maxClients)}` });
     }
+
 });

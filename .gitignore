@@ -23112,3 +23112,16 @@ release-builds/windows-installer/amplify-launcher-1.1.0-full.nupkg
 release-builds/windows-installer/amplify-launcher-1.1.1-full.nupkg
 release-builds/windows-installer/amplify-launcher-1.1.0-delta.nupkg
 release-builds/windows-installer/amplify-launcher-1.1.0-full.nupkg
+my_private_key.pvk
+my_signing_key.pfx
+my_test_certificate.cer
+release-builds/windows-installer/amplify-launcher-1.1.0-delta.nupkg
+release-builds/windows-installer/amplify-launcher-1.1.0-full.nupkg
+release-builds/windows-installer/amplify-launcher-1.2.0-delta.nupkg
+release-builds/windows-installer/amplify-launcher-1.2.0-full.nupkg
+release-builds/windows-installer/amplify-launcher-1.3.0-delta.nupkg
+release-builds/windows-installer/amplify-launcher-1.3.0-full.nupkg
+release-builds/windows-installer/amplify-launcher-1.1.0-delta.nupkg
+release-builds/windows-installer/amplify-launcher-1.1.0-full.nupkg
+release-builds/windows-installer/amplify-launcher-1.2.0-delta.nupkg
+release-builds/windows-installer/amplify-launcher-1.2.0-full.nupkg

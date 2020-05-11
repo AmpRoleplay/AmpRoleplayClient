@@ -1,7 +1,7 @@
 {
   "name": "amplify-launcher",
   "productName": "Amplify Launcher",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Amp Roleplay FiveM Launcher",
   "main": "main.js",
   "scripts": {
@@ -18,12 +18,12 @@
     "electron": "^8.2.0"
   },
   "dependencies": {
+    "download-file": "^0.1.5",
     "electron-packager": "^14.2.1",
     "electron-winstaller": "^4.0.0",
     "fs-extra": "^9.0.0",
     "jquery": "^3.4.1",
-    "node-fetch": "^2.6.0",
-    "update-electron-app": "^1.5.0"
+    "node-fetch": "^2.6.0"
   },
   "repository": {
     "type": "git",
